@@ -65,6 +65,10 @@ public class login extends JFrame {
 		r2.setBounds(236, 92, 141, 23);
 		contentPane.add(r2);
 		
+		JLabel reply_show = new JLabel("check");
+		reply_show.setBounds(83, 239, 226, 16);
+		contentPane.add(reply_show);
+		
 		ButtonGroup bgroup = new ButtonGroup();
 		bgroup.add(r1);
 		bgroup.add(r2);
@@ -83,6 +87,7 @@ public class login extends JFrame {
 					if(uname.isEmpty() || pass.isEmpty())
 					{
 						reply = "Please enter both the details";
+						reply_show.setText(reply);
 						return;
 					}
 					if(r2.isSelected())
@@ -97,6 +102,7 @@ public class login extends JFrame {
 						if(count == 0)
 						{
 							reply = "wrong password or username";
+							reply_show.setText(reply);
 							return;
 						}
 						else
@@ -120,6 +126,7 @@ public class login extends JFrame {
 						if(count == 0)
 						{
 							reply = "wrong password or username";
+							reply_show.setText(reply);
 							return;
 						}
 						else
@@ -132,6 +139,7 @@ public class login extends JFrame {
 					if(!r1.isSelected() && !r2.isSelected())
 					{
 						reply = "Choose one of them";
+						reply_show.setText(reply);
 						return;
 					}
 					// need to create a table set the value of it before return
@@ -139,6 +147,8 @@ public class login extends JFrame {
 				catch(Exception err)
 				{
 					reply = "database error";
+					reply_show.setText(reply);
+					return;
 				}
 			}
 			
@@ -155,5 +165,6 @@ public class login extends JFrame {
 		password.setBounds(29, 182, 130, 26);
 		contentPane.add(password);
 		password.setColumns(10);
+		
 	}
 }
