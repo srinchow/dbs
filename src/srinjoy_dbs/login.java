@@ -1,6 +1,7 @@
 package srinjoy_dbs;
 
 import java.awt.BorderLayout;
+import java.sql.*;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -45,6 +47,7 @@ public class login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setVisible(true);
 		
 		JLabel lblUsername = new JLabel("username");
 		lblUsername.setBounds(49, 41, 82, 23);
@@ -54,18 +57,89 @@ public class login extends JFrame {
 		lblPassword.setBounds(49, 145, 61, 16);
 		contentPane.add(lblPassword);
 		
-		JRadioButton rdbtnStudent = new JRadioButton("student");
-		rdbtnStudent.setBounds(236, 40, 141, 23);
-		contentPane.add(rdbtnStudent);
+		JRadioButton r1 = new JRadioButton("student");
+		r1.setBounds(236, 40, 141, 23);
+		contentPane.add(r1);
 		
-		JRadioButton rdbtnTeacher = new JRadioButton("teacher");
-		rdbtnTeacher.setBounds(236, 92, 141, 23);
-		contentPane.add(rdbtnTeacher);
+		JRadioButton r2 = new JRadioButton("teacher");
+		r2.setBounds(236, 92, 141, 23);
+		contentPane.add(r2);
+		
+		ButtonGroup bgroup = new ButtonGroup();
+		bgroup.add(r1);
+		bgroup.add(r2);
 		
 		JButton btnLogin = new JButton("login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//login code
+				//submit
+				String reply = "";
+				try 
+				{
+					//connection code
+					
+					String uname = username.getText();
+					String pass = password.getText();
+					if(uname.isEmpty() || pass.isEmpty())
+					{
+						reply = "Please enter both the details";
+						return;
+					}
+					if(r2.isSelected())
+					{
+						String qry = "select count(*) as cnt from teacher_login where username = ? and password = ?";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setString(1, uname);
+						stmt.setString(2, pass);
+						ResultSet rs = stmt.executeQuery();
+						int count = rs.getInt(1);
+						
+						if(count == 0)
+						{
+							reply = "wrong password or username";
+							return;
+						}
+						else
+						{
+							dispose();
+							new teacher_page();
+							return;
+						}
+						
+						
+					}
+					if(r1.isSelected())
+					{
+						String qry = "select count(*) as cnt from student_login where username = ? and password = ?";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setString(1, uname);
+						stmt.setString(2, pass);
+						ResultSet rs = stmt.executeQuery();
+						int count = rs.getInt(1);
+						
+						if(count == 0)
+						{
+							reply = "wrong password or username";
+							return;
+						}
+						else
+						{
+							dispose();
+							new student_page();
+							return;
+						}
+					}
+					if(!r1.isSelected() && !r2.isSelected())
+					{
+						reply = "Choose one of them";
+						return;
+					}
+					// need to create a table set the value of it before return
+				}
+				catch(Exception err)
+				{
+					reply = "database error";
+				}
 			}
 			
 		});
