@@ -25,7 +25,7 @@ public class teacher_page extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					teacher_page frame = new teacher_page();
+					teacher_page frame = new teacher_page("check1");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +37,7 @@ public class teacher_page extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public teacher_page() {
+	public teacher_page(String uname) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		setBounds(100, 100, 450, 300);

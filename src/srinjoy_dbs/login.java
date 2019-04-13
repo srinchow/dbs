@@ -108,7 +108,7 @@ public class login extends JFrame {
 						else
 						{
 							dispose();
-							new teacher_page();
+							new teacher_page(uname);
 							return;
 						}
 						
@@ -132,7 +132,7 @@ public class login extends JFrame {
 						else
 						{
 							dispose();
-							new student_page();
+							new student_page(uname);
 							return;
 						}
 					}

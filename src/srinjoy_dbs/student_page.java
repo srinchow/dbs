@@ -83,6 +83,10 @@ public class student_page extends JFrame {
 		JLabel lblDayOfBooking = new JLabel("Day of booking :-");
 		lblDayOfBooking.setBounds(51, 73, 127, 16);
 		contentPane.add(lblDayOfBooking);
+		
+		JLabel reg = new JLabel("reg no - ");
+		reg.setBounds(258, 73, 142, 16);
+		contentPane.add(reg);
 	}
 
 }
